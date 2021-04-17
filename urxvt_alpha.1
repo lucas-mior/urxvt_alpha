@@ -1,0 +1,30 @@
+.TH urxvt_alpha 1 urxvt_alpha\-VERSION
+.SH NAME
+urxvt_alpha \- Change urxvt alpha and print to stdout.
+.SH SYNOPSIS
+.B urxvt_alpha
+.RB [ \-+ ]
+.SH DESCRIPTION
+urxvt_alpha is a program to change urxvt alpha and print the current value of alpha to stdout.
+.P
+To do so, it has to read and write the corresponding file.
+Please note, that in order to do this you must have the right permissions.
+.SH USAGE
+.TP
+.BI "\-"
+Decrease screen urxvt_alphaness, and then print to stdout.
+.TP
+.B "+"
+Increase screen urxvt_alphaness, and then print to stdout.
+.TP
+.B
+Without arguments, just print current urxvt alpha.
+.SH CONFIGURATION
+Edit `urxvt_alpha.c` and recompile.
+.SH AUTHOR
+.EX
+Lucas Mior   <lucas.mior at tutamail.com>
+.EE
+.SH SEE ALSO
+.BR X (7),
+.BR xrdb (1)
