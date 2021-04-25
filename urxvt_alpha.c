@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <errno.h>
 
 #include "urxvt_alpha.h"
@@ -12,33 +13,17 @@ static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,
 
 int main(int argc, char *argv[]) {
     const char *name = "opacity";
-    /* const char *urxvt = ""; */
     const char *cache = "/dev/shm";
-    char *window_id;
-    char *opacity_file;
+    int window_id;
+    char opacity_file[200];
     int current;
-    size_t n;
 
     if(argc <= 1)
         help();
-    else if(argc == 2)
-        window_id = "0"; // in case we don't get argv[2]
     else
-        window_id = argv[2];
+        window_id = (int) getppid(); // in case we don't get argv[2]
 
-    /* if(!(cache = getenv("XDG_CACHE_HOME"))) { */
-    /*     fprintf(stderr, "XDG_CACHE_HOME is not set, setting urxvt 100%% opaque\n"); */
-    /*     send_escape_sequences(levels[MAX_OPACITY]); */
-    /*     return 1; */
-    /* } */
-
-    n = strlen(cache) + 1 + strlen(name) + 1 + strlen(window_id) + 1;
-    if(!(opacity_file = malloc(n))) {
-        fprintf(stderr, "Failed to allocate memory, setting urxvt 100%% opaque\n");
-        send_escape_sequences(levels[MAX_OPACITY]);
-        return 1;
-    }
-    (void) snprintf(opacity_file, n, "%s/%s_%s", cache, name, window_id);
+    (void) snprintf(opacity_file, sizeof(opacity_file), "%s/%s_%d", cache, name, window_id);
 
     current = get_current(opacity_file);
 
@@ -54,7 +39,6 @@ int main(int argc, char *argv[]) {
     current = save_current(opacity_file, current);
     send_escape_sequences(levels[current]);
 
-    free(opacity_file);
     return 0;
 }
 
