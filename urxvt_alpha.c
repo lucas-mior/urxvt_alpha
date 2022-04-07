@@ -13,7 +13,7 @@ static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,
 
 int main(int argc, char *argv[]) {
     const char *name = "opacity";
-    const char *cache = "/dev/shm";
+    const char *cache = "/tmp";
     int window_id;
     char opacity_file[200];
     int current;
