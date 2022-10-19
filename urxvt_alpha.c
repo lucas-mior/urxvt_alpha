@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     char opacity_file[200];
     int current;
 
-    if(argc <= 1)
+    if (argc <= 1)
         help();
     else
         window_id = (int) getppid(); // in case we don't get argv[2]
@@ -27,13 +27,13 @@ int main(int argc, char *argv[]) {
 
     current = get_current(opacity_file);
 
-    if((argv[1][0] == '-') && (0 < current))
+    if ((argv[1][0] == '-') && (0 < current))
         --current;
-    else if((argv[1][0] == '+') && (current < MAX_OPACITY))
+    else if ((argv[1][0] == '+') && (current < MAX_OPACITY))
         ++current;
-    else if((argv[1][0] == '='))
+    else if (argv[1][0] == '=')
         current = MAX_OPACITY;
-    else if((argv[1][0] == 'h'))
+    else if (argv[1][0] == 'h')
         help();
 
     current = save_current(opacity_file, current);
@@ -48,7 +48,7 @@ int get_current(char *cache_name) {
     char *end_pointer;
     int current;
 
-    if(!(cache = fopen(cache_name, "r"))) {
+    if (!(cache = fopen(cache_name, "r"))) {
         if(errno != ENOENT) {
             fprintf(stderr, "Can't open file for getting current opacity, keeping urxvt 100%% opaque\n");
             return MAX_OPACITY;
@@ -56,14 +56,14 @@ int get_current(char *cache_name) {
             return DEF_OPACITY;
         }
     }
-    if(!fgets(current_str, 3, cache)) {
+    if (!fgets(current_str, 3, cache)) {
         fprintf(stderr, "Can't read from file, keeping urxvt 100%% opaque\n");
         (void) fclose(cache);
         return MAX_OPACITY;
     }
 
     current = (int) strtol(current_str, &end_pointer, 10);
-    if((current < 0) || (current > MAX_OPACITY) || (end_pointer == current_str)) {
+    if ((current < 0) || (current > MAX_OPACITY) || (end_pointer == current_str)) {
         fprintf(stderr, "Invalid opacity read from file, keeping urxvt 100%% opaque\n");
         (void) fclose(cache);
         return MAX_OPACITY;
@@ -76,11 +76,11 @@ int get_current(char *cache_name) {
 int save_current(char *cache_name, int wanted) {
     FILE *save;
 
-    if(!(save = fopen(cache_name, "w"))) {
+    if (!(save = fopen(cache_name, "w"))) {
         fprintf(stderr, "Can't open file for saving current opacity, keeping urxvt 100%% opaque\n");
         return MAX_OPACITY;
     }
-    if(fprintf(save, "%i\n", wanted) < 0) {
+    if (fprintf(save, "%i\n", wanted) < 0) {
         fprintf(stderr, "Can't write to file, keeping urxvt 100%% opaque\n");
         (void) fclose(save);
         return MAX_OPACITY;
