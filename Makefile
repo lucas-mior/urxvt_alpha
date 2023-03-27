@@ -1,5 +1,3 @@
-version = 1.0
-
 srcdir = .
 
 PREFIX = /usr/local
@@ -33,7 +31,6 @@ install: all
 	cp urxvt_alpha $(DESTDIR)$(PREFIX)/bin/
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/urxvt_alpha
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
-	sed "s!PREFIX!$(PREFIX)!g; s!VERSION!$(version)!g" urxvt_alpha.1 > $(DESTDIR)$(MANPREFIX)/man1/urxvt_alpha.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/urxvt_alpha.1
 
 uninstall:
