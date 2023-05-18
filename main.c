@@ -7,7 +7,8 @@
 #define MAX_OPACITY (int) (sizeof(levels) / sizeof((levels)[0]) - 1)
 #define DEF_OPACITY 13
 
-static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 93, 96, 100 };
+static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 
+                             65, 70, 75, 80, 85, 90, 93, 96, 100 };
 static int get_current(char *);
 static int save_current(char *, int);
 static void send_escape_sequences(int);
