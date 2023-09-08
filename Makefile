@@ -3,7 +3,7 @@ srcdir = .
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
-cflags = -O3 -std=gnu99 -Wall -Wextra -pedantic $(CFLAGS)
+CFLAGS += -O3 -std=gnu99 -Wall -Wextra -pedantic
 
 ldlibs = $(LDLIBS)
 
@@ -16,12 +16,12 @@ all: urxvt_alpha
 .SUFFIXES: .c .o
 
 urxvt_alpha: $(objs)
-	$(CC) $(cflags) $(LDFLAGS) -o $@ $(objs) $(ldlibs)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(objs) $(ldlibs)
 
 $(objs): Makefile
 
 .c.o:
-	$(CC) $(cflags) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -f *.o urxvt_alpha

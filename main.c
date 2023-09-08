@@ -20,13 +20,18 @@ int main(int argc, char *argv[]) {
     int window_id;
     char opacity_file[200];
     int current;
+	int n;
 
     if (argc <= 1)
         help();
     else
         window_id = (int) getppid(); // in case we don't get argv[2]
 
-    (void) snprintf(opacity_file, sizeof(opacity_file), "%s/%s_%d", cache, name, window_id);
+    n = snprintf(opacity_file, sizeof(opacity_file), "%s/%s_%d", cache, name, window_id);
+	if (n < 0) {
+		fprintf(stderr, "Error printint opacity filename.\n");
+		exit(EXIT_FAILURE);
+	}
 
     current = get_current(opacity_file);
 
