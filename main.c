@@ -11,7 +11,7 @@ static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60,
                              65, 70, 75, 80, 85, 90, 93, 96, 100 };
 static int get_current(char *);
 static int save_current(char *, int);
-static void help(void) __attribute__((noreturn));
+static void help(FILE *) __attribute__((noreturn));
 
 int main(int argc, char *argv[]) {
     const char *name = "opacity";
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 	int n;
 
     if (argc <= 1)
-        help();
+        help(stderr);
     else
         window_id = (int) getppid(); // in case we don't get argv[2]
 
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     else if (argv[1][0] == '=')
         current = MAX_OPACITY;
     else if (argv[1][0] == 'h')
-        help();
+        help(stdout);
 
     current = save_current(opacity_file, current);
     printf("\033]011;[%i]#000000\007", levels[current]); //background
@@ -103,11 +103,11 @@ int save_current(char *cache_name, int wanted) {
     return wanted;
 }
 
-void help(void) {
-    (void) puts("urxvt_opacity [-+=h]\n"
-                "- -- decrease\n"
-                "+ -- increase\n"
-                "= -- set 100% opaque\n"
-                "h -- print this help message");
-    exit(EXIT_SUCCESS);
+void help(FILE *stream) {
+    fprintf(stream, "urxvt_alpha [-+=h]\n"
+                    "- -- decrease\n"
+                    "+ -- increase\n"
+                    "= -- set 100%% opaque\n"
+                    "h -- print this help message");
+    exit(stream != stdout);
 }
