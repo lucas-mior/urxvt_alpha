@@ -11,7 +11,6 @@ static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60,
                              65, 70, 75, 80, 85, 90, 93, 96, 100 };
 static int get_current(char *);
 static int save_current(char *, int);
-static void send_escape_sequences(int);
 static void help(void) __attribute__((noreturn));
 
 int main(int argc, char *argv[]) {
@@ -47,7 +46,8 @@ int main(int argc, char *argv[]) {
         help();
 
     current = save_current(opacity_file, current);
-    send_escape_sequences(levels[current]);
+    printf("\033]011;[%i]#000000\007", levels[current]); //background
+    printf("\033]708;[%i]#000000\007", levels[current]); //border
 
     return 0;
 }
@@ -101,11 +101,6 @@ int save_current(char *cache_name, int wanted) {
 
     (void) fclose(save);
     return wanted;
-}
-
-void send_escape_sequences(int level) {
-    printf("\033]011;[%i]#000000\007", level); //background
-    printf("\033]708;[%i]#000000\007", level); //border
 }
 
 void help(void) {

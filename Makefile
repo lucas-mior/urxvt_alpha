@@ -3,7 +3,7 @@ srcdir = .
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
-CFLAGS += -O3 -std=gnu99 -Wall -Wextra -pedantic
+CFLAGS += -O2 -flto -std=c99 -Wall -Wextra
 
 ldlibs = $(LDLIBS)
 
