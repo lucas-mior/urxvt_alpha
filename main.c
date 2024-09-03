@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#define MAX_OPACITY (int) (sizeof (levels) / sizeof (*levels) - 1)
+#define MAX_OPACITY (int) (sizeof(levels) / sizeof(*levels) - 1)
 #define DEF_OPACITY 13
 
 static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 
@@ -26,13 +26,13 @@ int main(int argc, char *argv[]) {
     else
         window_id = (int) getppid(); // in case we don't get argv[2]
 
-    n = snprintf(opacity_file, sizeof (opacity_file) - 1,
+    n = snprintf(opacity_file, sizeof(opacity_file) - 1,
                 "%s/%s_%d", cache, name, window_id);
 	if (n < 0) {
 		fprintf(stderr, "Error printint opacity filename.\n");
 		exit(EXIT_FAILURE);
 	}
-    opacity_file[sizeof (opacity_file) - 1] = '\0';
+    opacity_file[sizeof(opacity_file) - 1] = '\0';
 
     current = get_current(opacity_file);
 
