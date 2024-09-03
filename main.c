@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         window_id = (int) getppid(); // in case we don't get argv[2]
 
     n = snprintf(opacity_file, sizeof(opacity_file) - 1,
-                "%s/%s_%d", cache, name, window_id);
+                 "%s/%s_%d", cache, name, window_id);
 	if (n < 0) {
 		fprintf(stderr, "Error printint opacity filename.\n");
 		exit(EXIT_FAILURE);
