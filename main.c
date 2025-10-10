@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
 
     if (argc <= 1)
         help(stderr);
-    else
-        window_id = (int) getppid(); // in case we don't get argv[2]
+
+    window_id = (int)getppid();
 
     SNPRINTF(opacity_file, "%s/%s_%d", cache, name, window_id);
     do {
