@@ -33,11 +33,11 @@ int main(int argc, char *argv[]) {
 
     SNPRINTF(opacity_file, "%s/%s_%d", cache, name, window_id);
     do {
-        FILE *cache;
+        FILE *cache2;
         char current_str[4];
         char *endptr;
 
-        if (!(cache = fopen(opacity_file, "r"))) {
+        if (!(cache2 = fopen(opacity_file, "r"))) {
             if (errno != ENOENT) {
                 error("Can't open file for getting current opacity. "
                       "Keeping urxvt 100%% opaque\n");
@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
                 current = DEF_OPACITY;
             }
         }
-        if (!fgets(current_str, 3, cache)) {
+        if (!fgets(current_str, 3, cache2)) {
             error("Can't read from file, keeping urxvt 100%% opaque\n");
-            (void) fclose(cache);
+            (void) fclose(cache2);
             current = MAX_OPACITY;
         }
 
@@ -56,11 +56,11 @@ int main(int argc, char *argv[]) {
         if ((current < 0) || (current > MAX_OPACITY) || (endptr == current_str)) {
             error("Invalid opacity read from file. "
                             "Keeping urxvt 100%% opaque\n");
-            (void) fclose(cache);
+            (void) fclose(cache2);
             current = MAX_OPACITY;
         }
 
-        (void) fclose(cache);
+        (void) fclose(cache2);
     } while (0);
 
     if ((argv[1][0] == '-') && (0 < current))

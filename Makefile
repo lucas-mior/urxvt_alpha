@@ -1,9 +1,11 @@
 srcdir = .
 
+CC=clang
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
-CFLAGS += -O2 -flto -std=c99 -Wall -Wextra
+CFLAGS += -O2 -flto -std=c99 -Wall -Wextra -Weverything
+CFLAGS += -Wno-unsafe-buffer-usage -Wno-format-nonliteral
 
 ldlibs = $(LDLIBS)
 
