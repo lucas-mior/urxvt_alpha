@@ -15,7 +15,6 @@ typedef int32_t int32;
 
 static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 
                              65, 70, 75, 80, 85, 90, 93, 96, 100 };
-static int save_current(char *, int);
 static void help(FILE *) __attribute__((noreturn));
 static void *snprintf2(char *, size_t, char *, ...);
 static void error(char *, ...);
@@ -75,29 +74,28 @@ int main(int argc, char *argv[]) {
     else if (argv[1][0] == 'h')
         help(stdout);
 
-    current = save_current(opacity_file, current);
+    do {
+        FILE *save;
+
+        if (!(save = fopen(opacity_file, "w"))) {
+            error("Can't open file for saving current opacity. "
+                            "Keeping urxvt 100%% opaque\n");
+            current = MAX_OPACITY;
+            break;
+        }
+        if (fprintf(save, "%i\n", current) < 0) {
+            error("Can't write to file, keeping urxvt 100%% opaque\n");
+            fclose(save);
+            current = MAX_OPACITY;
+        }
+
+        fclose(save);
+    } while (0);
+
     printf("\033]011;[%i]#000000\007", levels[current]); //background
     printf("\033]708;[%i]#000000\007", levels[current]); //border
 
     return 0;
-}
-
-int save_current(char *cache_name, int wanted) {
-    FILE *save;
-
-    if (!(save = fopen(cache_name, "w"))) {
-        error("Can't open file for saving current opacity. "
-                        "Keeping urxvt 100%% opaque\n");
-        return MAX_OPACITY;
-    }
-    if (fprintf(save, "%i\n", wanted) < 0) {
-        error("Can't write to file, keeping urxvt 100%% opaque\n");
-        (void) fclose(save);
-        return MAX_OPACITY;
-    }
-
-    (void) fclose(save);
-    return wanted;
 }
 
 void help(FILE *stream) {
