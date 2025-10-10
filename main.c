@@ -13,13 +13,13 @@
 
 typedef int32_t int32;
 
-static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 
-                             65, 70, 75, 80, 85, 90, 93, 96, 100 };
 static void help(FILE *) __attribute__((noreturn));
 static void *snprintf2(char *, size_t, char *, ...);
 static void error(char *, ...);
 
 int main(int argc, char *argv[]) {
+    static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 
+                                 65, 70, 75, 80, 85, 90, 93, 96, 100 };
     const char *name = "opacity";
     const char *cache = "/tmp";
     int window_id;
