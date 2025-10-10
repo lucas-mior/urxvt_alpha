@@ -2,15 +2,23 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdarg.h>
+#include <stdint.h>
 
+#define SNPRINTF(BUFFER, FORMAT, ...) \
+    snprintf2(BUFFER, sizeof(BUFFER), FORMAT, __VA_ARGS__)
 #define MAX_OPACITY (int) (sizeof(levels) / sizeof(*levels) - 1)
 #define DEF_OPACITY 13
+
+typedef int32_t int32;
 
 static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 
                              65, 70, 75, 80, 85, 90, 93, 96, 100 };
 static int get_current(char *);
 static int save_current(char *, int);
 static void help(FILE *) __attribute__((noreturn));
+static void *snprintf2(char *, size_t, char *, ...);
+static void error(char *, ...);
 
 int main(int argc, char *argv[]) {
     const char *name = "opacity";
@@ -18,21 +26,13 @@ int main(int argc, char *argv[]) {
     int window_id;
     char opacity_file[256];
     int current;
-	int n;
 
     if (argc <= 1)
         help(stderr);
     else
         window_id = (int) getppid(); // in case we don't get argv[2]
 
-    n = snprintf(opacity_file, sizeof(opacity_file) - 1,
-                 "%s/%s_%d", cache, name, window_id);
-	if (n < 0) {
-		fprintf(stderr, "Error printint opacity filename.\n");
-		exit(EXIT_FAILURE);
-	}
-    opacity_file[sizeof(opacity_file) - 1] = '\0';
-
+    SNPRINTF(opacity_file, "%s/%s_%d", cache, name, window_id);
     current = get_current(opacity_file);
 
     if ((argv[1][0] == '-') && (0 < current))
@@ -109,4 +109,58 @@ void help(FILE *stream) {
                     "= -- set 100%% opaque\n"
                     "h -- print this help message");
     exit(stream != stdout);
+}
+
+void *
+snprintf2(char *buffer, size_t size, char *format, ...) {
+    int n;
+    va_list args;
+
+    va_start(args, format);
+    n = vsnprintf(buffer, size, format, args);
+    va_end(args);
+
+    if (size <= 8) {
+        error("%s: wrong buffer size = %zu.\n", __func__, size);
+        exit(EXIT_FAILURE);
+    }
+    if (n >= (int)size) {
+        va_list args2;
+        buffer = malloc((size_t)n + 1);
+        va_start(args, format);
+        va_copy(args2, args);
+        n = vsnprintf(buffer, (size_t)n + 1, format, args);
+        va_end(args);
+    }
+    if (n <= 0) {
+        error("Error in snprintf.\n");
+        exit(EXIT_FAILURE);
+    }
+    return buffer;
+}
+
+void
+error(char *format, ...) {
+    int32 n;
+    va_list args;
+    char buffer[BUFSIZ];
+
+    va_start(args, format);
+    n = vsnprintf(buffer, sizeof(buffer), format, args);
+    va_end(args);
+
+    if (n < 0) {
+        fprintf(stderr, "Error in vsnprintf()\n");
+        exit(EXIT_FAILURE);
+    }
+    if (n > (int32)sizeof(buffer)) {
+        fprintf(stderr, "Error in vsnprintf: buffer is not large enough.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    buffer[n] = '\0';
+    write(STDERR_FILENO, buffer, (size_t)n);
+    fsync(STDERR_FILENO);
+    fsync(STDOUT_FILENO);
+    return;
 }
