@@ -39,22 +39,22 @@ int main(int argc, char *argv[]) {
 
         if (!(cache = fopen(opacity_file, "r"))) {
             if (errno != ENOENT) {
-                fprintf(stderr, "Can't open file for getting current opacity. "
-                                "Keeping urxvt 100%% opaque\n");
+                error("Can't open file for getting current opacity. "
+                      "Keeping urxvt 100%% opaque\n");
                 current = MAX_OPACITY;
             } else {
                 current = DEF_OPACITY;
             }
         }
         if (!fgets(current_str, 3, cache)) {
-            fprintf(stderr, "Can't read from file, keeping urxvt 100%% opaque\n");
+            error("Can't read from file, keeping urxvt 100%% opaque\n");
             (void) fclose(cache);
             current = MAX_OPACITY;
         }
 
         current = (int) strtol(current_str, &endptr, 10);
         if ((current < 0) || (current > MAX_OPACITY) || (endptr == current_str)) {
-            fprintf(stderr, "Invalid opacity read from file. "
+            error("Invalid opacity read from file. "
                             "Keeping urxvt 100%% opaque\n");
             (void) fclose(cache);
             current = MAX_OPACITY;
@@ -83,12 +83,12 @@ int save_current(char *cache_name, int wanted) {
     FILE *save;
 
     if (!(save = fopen(cache_name, "w"))) {
-        fprintf(stderr, "Can't open file for saving current opacity. "
+        error("Can't open file for saving current opacity. "
                         "Keeping urxvt 100%% opaque\n");
         return MAX_OPACITY;
     }
     if (fprintf(save, "%i\n", wanted) < 0) {
-        fprintf(stderr, "Can't write to file, keeping urxvt 100%% opaque\n");
+        error("Can't write to file, keeping urxvt 100%% opaque\n");
         (void) fclose(save);
         return MAX_OPACITY;
     }
@@ -145,11 +145,11 @@ error(char *format, ...) {
     va_end(args);
 
     if (n < 0) {
-        fprintf(stderr, "Error in vsnprintf()\n");
+        error("Error in vsnprintf()\n");
         exit(EXIT_FAILURE);
     }
     if (n > (int32)sizeof(buffer)) {
-        fprintf(stderr, "Error in vsnprintf: buffer is not large enough.\n");
+        error("Error in vsnprintf: buffer is not large enough.\n");
         exit(EXIT_FAILURE);
     }
 
