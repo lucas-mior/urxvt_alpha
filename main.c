@@ -42,21 +42,23 @@ int main(int argc, char *argv[]) {
                 error("Can't open file for getting current opacity. "
                       "Keeping urxvt 100%% opaque\n");
                 current = MAX_OPACITY;
+                break;
             } else {
                 current = DEF_OPACITY;
+                break;
             }
         }
-        if (!fgets(current_str, 3, cache2)) {
+        if (!fgets(current_str, sizeof(current_str), cache2)) {
             error("Can't read from file, keeping urxvt 100%% opaque\n");
             (void) fclose(cache2);
             current = MAX_OPACITY;
+            break;
         }
 
         current = (int) strtol(current_str, &endptr, 10);
         if ((current < 0) || (current > MAX_OPACITY) || (endptr == current_str)) {
             error("Invalid opacity read from file. "
                             "Keeping urxvt 100%% opaque\n");
-            (void) fclose(cache2);
             current = MAX_OPACITY;
         }
 
