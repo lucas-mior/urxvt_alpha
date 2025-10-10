@@ -145,11 +145,11 @@ error(char *format, ...) {
     va_end(args);
 
     if (n < 0) {
-        error("Error in vsnprintf()\n");
+        fprintf(stderr, "Error in vsnprintf()\n");
         exit(EXIT_FAILURE);
     }
     if (n > (int32)sizeof(buffer)) {
-        error("Error in vsnprintf: buffer is not large enough.\n");
+        fprintf(stderr, "Error in vsnprintf: buffer is not large enough.\n");
         exit(EXIT_FAILURE);
     }
 
