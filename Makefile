@@ -4,8 +4,8 @@ CC=clang
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
-CFLAGS += -g -std=c99 -Wall -Wextra -Weverything
-CFLAGS += -Wno-unsafe-buffer-usage -Wno-format-nonliteral
+CFLAGS += -g -std=c99 -D_DEFAULT_SOURCE -Wall -Wextra -Weverything
+CFLAGS += -Wno-unsafe-buffer-usage -Wno-format-nonliteral -Wno-unused-function
 
 ldlibs = $(LDLIBS)
 
