@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
         current = atoi(current_str);
         if ((current < 0) || (current > MAX_OPACITY)) {
             error("Invalid opacity read from file. "
-                            "Keeping urxvt 100%% opaque\n");
+                  "Keeping urxvt 100%% opaque\n");
             current = MAX_OPACITY;
         }
 
