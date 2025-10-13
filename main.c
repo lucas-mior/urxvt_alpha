@@ -52,7 +52,8 @@ int main(int argc, char *argv[]) {
                 error(": %s", strerror(errno));
             error(".\nKeeping urxvt 100%% opaque.\n");
 
-            close(cache2);
+            if (close(cache2) < 0)
+                error("Error closing %s: %s.\n", opacity_file, strerror(errno));
             current = MAX_OPACITY;
             break;
         }
