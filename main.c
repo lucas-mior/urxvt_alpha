@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
 
         if (!(save = fopen(opacity_file, "w"))) {
             error("Can't open file for saving current opacity. "
-                            "Keeping urxvt 100%% opaque\n");
+                  "Keeping urxvt 100%% opaque\n");
             current = MAX_OPACITY;
             break;
         }
