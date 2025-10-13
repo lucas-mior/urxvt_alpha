@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
     printf("\033]011;[%i]#000000\007", levels[current]); //background
     printf("\033]708;[%i]#000000\007", levels[current]); //border
 
-    return 0;
+    exit(EXIT_SUCCESS);
 }
 
 void help(FILE *stream) {
