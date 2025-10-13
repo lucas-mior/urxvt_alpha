@@ -47,7 +47,11 @@ int main(int argc, char *argv[]) {
             }
         }
         if ((r = read(cache2, current_str, sizeof(current_str))) <= 0) {
-            error("Can't read from file, keeping urxvt 100%% opaque\n");
+            error("Can't read from %s", opacity_file);
+            if (r < 0)
+                error(": %s", strerror(errno));
+            error(".\nKeeping urxvt 100%% opaque.\n");
+
             close(cache2);
             current = MAX_OPACITY;
             break;
