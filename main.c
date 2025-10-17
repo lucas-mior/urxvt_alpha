@@ -8,24 +8,26 @@
 
 #include "util.c"
 
-#define SNPRINTF(BUFFER, FORMAT, ...) \
+#define SNPRINTF(BUFFER, FORMAT, ...)                                          \
     snprintf2(BUFFER, sizeof(BUFFER), FORMAT, __VA_ARGS__)
-#define MAX_OPACITY (int) (sizeof(levels) / sizeof(*levels) - 1)
+#define MAX_OPACITY (int)(sizeof(levels) / sizeof(*levels) - 1)
 #define DEF_OPACITY 13
 
 static void help(FILE *) __attribute__((noreturn));
 
-int main(int argc, char *argv[]) {
-    static const int levels[] = { 0, 10, 20, 30, 35, 40, 45, 50, 55, 60, 
-                                 65, 70, 75, 80, 85, 90, 93, 96, 100 };
+int
+main(int argc, char *argv[]) {
+    static const int levels[] = {0,  10, 20, 30, 35, 40, 45, 50, 55, 60,
+                                 65, 70, 75, 80, 85, 90, 93, 96, 100};
     const char *name = "opacity";
     const char *cache = "/tmp";
     int window_id;
     char opacity_file[256];
     int current;
 
-    if (argc <= 1)
+    if (argc <= 1) {
         help(stderr);
+    }
 
     window_id = (int)getppid();
 
@@ -48,12 +50,14 @@ int main(int argc, char *argv[]) {
         }
         if ((r = read(cache2, current_str, sizeof(current_str))) <= 0) {
             error("Can't read from %s", opacity_file);
-            if (r < 0)
+            if (r < 0) {
                 error(": %s", strerror(errno));
+            }
             error(".\nKeeping urxvt 100%% opaque.\n");
 
-            if (close(cache2) < 0)
+            if (close(cache2) < 0) {
                 error("Error closing %s: %s.\n", opacity_file, strerror(errno));
+            }
             current = MAX_OPACITY;
             break;
         }
@@ -68,14 +72,15 @@ int main(int argc, char *argv[]) {
         close(cache2);
     } while (0);
 
-    if ((argv[1][0] == '-') && (0 < current))
+    if ((argv[1][0] == '-') && (0 < current)) {
         current -= 1;
-    else if ((argv[1][0] == '+') && (current < MAX_OPACITY))
+    } else if ((argv[1][0] == '+') && (current < MAX_OPACITY)) {
         current += 1;
-    else if (argv[1][0] == '=')
+    } else if (argv[1][0] == '=') {
         current = MAX_OPACITY;
-    else if (argv[1][0] == 'h')
+    } else if (argv[1][0] == 'h') {
         help(stdout);
+    }
 
     do {
         FILE *save;
@@ -95,13 +100,14 @@ int main(int argc, char *argv[]) {
         fclose(save);
     } while (0);
 
-    printf("\033]011;[%i]#000000\007", levels[current]); //background
-    printf("\033]708;[%i]#000000\007", levels[current]); //border
+    printf("\033]011;[%i]#000000\007", levels[current]);  // background
+    printf("\033]708;[%i]#000000\007", levels[current]);  // border
 
     exit(EXIT_SUCCESS);
 }
 
-void help(FILE *stream) {
+void
+help(FILE *stream) {
     fprintf(stream, "urxvt_alpha [-+=h]\n"
                     "- -- decrease\n"
                     "+ -- increase\n"
