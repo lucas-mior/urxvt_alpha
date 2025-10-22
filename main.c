@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <stdint.h>
 
+char *program;
 #include "util.c"
 
 #define SNPRINTF(BUFFER, FORMAT, ...)                                          \
@@ -28,6 +29,7 @@ main(int argc, char *argv[]) {
     if (argc <= 1) {
         help(stderr);
     }
+    program = argv[0];
 
     window_id = (int)getppid();
 
