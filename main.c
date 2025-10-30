@@ -6,7 +6,6 @@
 #include <fcntl.h>
 #include <stdint.h>
 
-static char *program;
 #include "util.c"
 
 #define SNPRINTF(BUFFER, FORMAT, ...)                                          \

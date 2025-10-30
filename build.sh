@@ -15,6 +15,7 @@ CC=${CC:-cc}
 if [ $CC = "clang" ]; then
     CFLAGS="$CFLAGS -Weverything "
     CFLAGS="$CFLAGS -Wno-unsafe-buffer-usage -Wno-format-nonliteral "
+    CFLAGS="$CFLAGS -Wno-implicit-void-ptr-cast"
 fi
 CFLAGS="$CFLAGS -std=c99 -D_DEFAULT_SOURCE"
 CFLAGS="$CFLAGS -Wextra -Wall "
