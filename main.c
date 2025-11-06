@@ -49,7 +49,7 @@ main(int argc, char *argv[]) {
                 break;
             }
         }
-        if ((r = read(cache2, current_str, sizeof(current_str))) <= 0) {
+        if ((r = read64(cache2, current_str, sizeof(current_str))) <= 0) {
             error("Can't read from %s", opacity_file);
             if (r < 0) {
                 error(": %s", strerror(errno));
