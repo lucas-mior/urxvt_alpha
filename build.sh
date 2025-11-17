@@ -12,16 +12,20 @@ program="urxvt_alpha"
 LDFLAGS="$LDFLAGS $(pkg-config libmagic --libs)"
 
 CC=${CC:-cc}
-if [ $CC = "clang" ]; then
-    CFLAGS="$CFLAGS -Weverything "
-    CFLAGS="$CFLAGS -Wno-unsafe-buffer-usage -Wno-format-nonliteral "
-    CFLAGS="$CFLAGS -Wno-implicit-void-ptr-cast"
-fi
-CFLAGS="$CFLAGS -std=c99 -D_DEFAULT_SOURCE"
-CFLAGS="$CFLAGS -Wextra -Wall "
-CFLAGS="$CFLAGS -Wno-disabled-macro-expansion -Wno-unused-parameter "
+CFLAGS="$CFLAGS -std=c11 -D_DEFAULT_SOURCE"
+CFLAGS="$CFLAGS -Wextra -Wall"
+CFLAGS="$CFLAGS -Wno-disabled-macro-expansion -Wno-unused-parameter"
 CFLAGS="$CFLAGS -Wno-unused-variable -Wno-unused-function"
 CFLAGS="$CFLAGS -Wno-c11-extensions -Wno-constant-logical-operand"
+
+if [ $CC = "clang" ]; then
+    CFLAGS="$CFLAGS -Weverything"
+    CFLAGS="$CFLAGS -Wno-unsafe-buffer-usage"
+    CFLAGS="$CFLAGS -Wno-format-nonliteral"
+    CFLAGS="$CFLAGS -Wno-format-pedantic"
+    CFLAGS="$CFLAGS -Wno-pre-c11-compat"
+    CFLAGS="$CFLAGS -Wno-implicit-void-ptr-cast"
+fi
 
 echo "target=$target"
 case "$target" in
