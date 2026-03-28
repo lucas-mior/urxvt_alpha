@@ -6,6 +6,10 @@ target="${1:-build}"
 PREFIX="${PREFIX:-/usr/local}"
 DESTDIR="${DESTDIR:-/}"
 
+dir="$(readlink -f "$(dirname "$0")")"
+cbase="cbase"
+CPPFLAGS="$CPPFLAGS -I "$dir/$cbase""
+
 main="main.c"
 program="urxvt_alpha"
 
