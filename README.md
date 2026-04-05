@@ -1,6 +1,6 @@
 # urxvt_alpha
 `urxvt_alpha` is a program to change the transparency of the `urxvt` terminal
-and print the current value of alpha to `stdout`. 
+and print the current value of alpha to `stdout`.
 
 ## Synopsis
 ```
