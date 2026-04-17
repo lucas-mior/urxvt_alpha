@@ -97,7 +97,9 @@ main(int argc, char *argv[]) {
             current = MAX_OPACITY;
         }
 
-        fclose(save);
+        if (fclose(save)) {
+            error("Error closing %s: %s.\n", opacity_file, strerror(errno));
+        }
     } while (0);
 
     printf("\033]011;[%i]#000000\007", levels[current]);  // background
