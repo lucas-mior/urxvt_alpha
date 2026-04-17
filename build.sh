@@ -58,6 +58,11 @@ case "$target" in
     install -Dm755 ${program} ${DESTDIR}${PREFIX}/bin/${program}
     install -Dm644 ${program}.1 ${DESTDIR}${PREFIX}/man/man1/${program}.1
     ;;
+"check")
+    CC=gcc CFLAGS="-fanalyzer" ./build.sh
+    scan-build --view -analyze-headers --status-bugs ./build.sh
+    exit
+    ;;
 "build"|"debug")
     ctags --kinds-C=+l ./*.h ./*.c 2> /dev/null || true
     vtags.sed tags > .tags.vim 2> /dev/null || true
@@ -65,6 +70,6 @@ case "$target" in
     $CC $CPPFLAGS $CFLAGS -o ${program} "$main" $LDFLAGS
     ;;
 *)
-    echo "usage: $0 [ uninstall / install / build / debug ]"
+    echo "usage: $0 [ uninstall / install / build / debug / check ]"
     ;;
 esac
