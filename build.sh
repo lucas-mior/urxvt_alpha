@@ -21,6 +21,7 @@ CFLAGS="$CFLAGS -Wextra -Wall"
 CFLAGS="$CFLAGS -Wno-disabled-macro-expansion -Wno-unused-parameter"
 CFLAGS="$CFLAGS -Wno-unused-variable -Wno-unused-function"
 CFLAGS="$CFLAGS -Wno-c11-extensions -Wno-constant-logical-operand"
+CFLAGS="$CFLAGS -Wno-gnu-union-cast"
 
 if [ $CC = "clang" ]; then
     CFLAGS="$CFLAGS -Weverything"
