@@ -1,8 +1,6 @@
 #define CBASE_IMPLEMENT
 #include "cbase.h"
 
-#define SNPRINTF(BUFFER, FORMAT, ...)                                          \
-    snprintf2(BUFFER, sizeof(BUFFER), FORMAT, __VA_ARGS__)
 #define MAX_OPACITY (int)(sizeof(levels) / sizeof(*levels) - 1)
 #define DEF_OPACITY 13
 
