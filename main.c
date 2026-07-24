@@ -1,12 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdarg.h>
-#include <fcntl.h>
-#include <stdint.h>
-
-#include "util.c"
+#define CBASE_IMPLEMENT
+#include "cbase.h"
 
 #define SNPRINTF(BUFFER, FORMAT, ...)                                          \
     snprintf2(BUFFER, sizeof(BUFFER), FORMAT, __VA_ARGS__)
