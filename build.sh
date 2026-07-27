@@ -11,16 +11,16 @@ cbase="cbase"
 CPPFLAGS="$CPPFLAGS -I "$dir/$cbase""
 
 main="main.c"
-program="urxvt_alpha"
+program=$(basename "$(readlink -f "$(dirname "$0")")")
 
 LDFLAGS="$LDFLAGS $(pkg-config libmagic --libs)"
 
 CC=${CC:-cc}
 CFLAGS="$CFLAGS -std=c11 -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=700"
 CFLAGS="$CFLAGS -Wextra -Wall"
-CFLAGS="$CFLAGS -Wno-disabled-macro-expansion -Wno-unused-parameter"
-CFLAGS="$CFLAGS -Wno-unused-variable -Wno-unused-function"
-CFLAGS="$CFLAGS -Wno-c11-extensions -Wno-constant-logical-operand"
+CFLAGS="$CFLAGS -Wno-unused-variable"
+CFLAGS="$CFLAGS -Wno-c11-extensions"
+CFLAGS="$CFLAGS -Wno-constant-logical-operand"
 CFLAGS="$CFLAGS -Wno-gnu-union-cast"
 
 if [ $CC = "clang" ]; then
