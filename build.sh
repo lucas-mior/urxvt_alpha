@@ -62,6 +62,8 @@ case "$target" in
     install -Dm755 ${program} ${DESTDIR}${PREFIX}/bin/${program}
     install -Dm644 ${program}.1 ${DESTDIR}${PREFIX}/man/man1/${program}.1
     ;;
+"test")
+    ;;
 "check")
     CC=gcc CFLAGS="-fanalyzer" ./build.sh
 
@@ -79,6 +81,6 @@ case "$target" in
     $CC $CPPFLAGS $CFLAGS -o ${program} "$main" $LDFLAGS
     ;;
 *)
-    echo "usage: $0 [ uninstall / install / build / debug / check ]"
+    echo "usage: $0 [ uninstall / install / build / debug / check / test ]"
     ;;
 esac
