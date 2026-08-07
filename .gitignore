@@ -1,9 +1,9 @@
-.tags.vim
-tags
-.cache
-compile_commands.json
-*temp_delete_me*
-*.cmd
-*.o
 bin/
+.cache
+*.cmd
+compile_commands.json
+*.o
+tags
+.tags.vim
 *.tar.gz
+*temp_delete_me*
