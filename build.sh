@@ -107,6 +107,7 @@ install)
     trace_off
     ;;
 test)
+    TEST_EXCLUDE_PATTERN='(^|/)cbase/' test "$2"
     exit
     ;;
 check)
