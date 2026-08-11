@@ -4,7 +4,7 @@
 #define MAX_OPACITY (int)(sizeof(levels) / sizeof(*levels) - 1)
 #define DEF_OPACITY 13
 
-static void help(FILE *) __attribute__((noreturn));
+static noreturn void help(FILE *);
 
 int
 main(int argc, char *argv[]) {
