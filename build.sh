@@ -13,7 +13,7 @@ script=$(basename "$0")
 common_build_parse_args "$@"
 
 case "$mode" in
-build|check|debug|fast_feedback|install|test|uninstall)
+build|check|cross|debug|fast_feedback|install|test|uninstall)
     ;;
 *)
     common_build_unknown_mode
@@ -36,7 +36,7 @@ CFLAGS="$CFLAGS -std=c11"
 CFLAGS="$CFLAGS -Wfatal-errors"
 CFLAGS="$CFLAGS -Wextra -Wall"
 CFLAGS="$CFLAGS -Werror=all -Werror=extra"
-CFLAGS="$CFLAGS -Werror"  # Only uncomment occasionally, keep this line
+# CFLAGS="$CFLAGS -Werror"  # Only uncomment occasionally, keep this line
 
 if [ "$CC" = "clang" ]; then
     CFLAGS="$CFLAGS -Weverything"
@@ -69,11 +69,26 @@ debug)
 build)
     CFLAGS="$CFLAGS -O2 -flto -march=native -ftree-vectorize"
     ;;
+cross)
+    common_build_cross_all
+    cross="$target"
+
+    CFLAGS="$CFLAGS -Wno-padded"
+    CFLAGS="$CFLAGS -target $cross"
+
+    case "$cross" in
+    *windows*)
+        exe="bin/$program.exe"
+        ;;
+    *)
+        ;;
+    esac
+    ;;
 fast_feedback)
     ;;
 test|install|uninstall)
     ;;
-build|check|debug|fast_feedback|install|test|uninstall)
+build|check|cross|debug|fast_feedback|install|test|uninstall)
     ;;
 *)
     common_build_unknown_mode
@@ -113,6 +128,9 @@ test)
     ;;
 check)
     common_build_run_analyzers build
+    ;;
+cross)
+    build_program
     ;;
 build|debug)
     build_program
