@@ -58,7 +58,7 @@ if [ "$CC" = "clang" ]; then
     CFLAGS="$CFLAGS -Wno-used-but-marked-unused"
 fi
 
-LDFLAGS="$LDFLAGS -lm $(pkg-config libmagic --libs)"
+LDFLAGS="$LDFLAGS -lm"
 
 case "$mode" in
 debug)
