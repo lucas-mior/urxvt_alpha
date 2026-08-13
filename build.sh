@@ -66,7 +66,6 @@ fast_feedback)
 test|install|uninstall)
     ;;
 *)
-    CFLAGS="$CFLAGS -O2"
     ;;
 esac
 
@@ -114,7 +113,17 @@ check)
     CC=clang CFLAGS="$CFLAGS" "$0" build
     exit
     ;;
-*)
+build|debug)
     build_program
+    ;;
+esac
+
+
+case "$mode" in
+build|check|debug|fast_feedback|install|test|uninstall)
+    ;;
+*)
+    echo "Unknown mode $mode"
+    exit 1
     ;;
 esac
