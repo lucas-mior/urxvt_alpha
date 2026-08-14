@@ -70,7 +70,7 @@ build)
     CFLAGS="$CFLAGS -O2 -flto -march=native -ftree-vectorize"
     ;;
 cross)
-    common_build_cross_all
+    common_build_cross_all windows
     cross="$target"
 
     CFLAGS="$CFLAGS -Wno-padded"
