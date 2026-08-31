@@ -22,7 +22,7 @@
     CAT(mem_literal_short_, MEM_LITERAL_SHORT_N)
 
 #define MEM_LITERAL_SHORT_MATCH(P, L) \
-    (memcmp((P) + 1, (L) + 1, MEM_LITERAL_SHORT_N - 1) == 0)
+    ()
 
 INLINE UNUSED char *
 MEM_LITERAL_SHORT_FUNCTION(char *haystack, int64 haystack_len,
@@ -47,7 +47,7 @@ MEM_LITERAL_SHORT_FUNCTION(char *haystack, int64 haystack_len,
         if (p == NULL) {
             return NULL;
         }
-        if (MEM_LITERAL_SHORT_MATCH(p, literal)) {
+        if (memcmp(p + 1, literal + 1, MEM_LITERAL_SHORT_N - 1) == 0) {
             return p;
         }
         candidate = p + 1;
