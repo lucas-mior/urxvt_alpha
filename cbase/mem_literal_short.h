@@ -21,9 +21,6 @@
 #define MEM_LITERAL_SHORT_FUNCTION \
     CAT(mem_literal_short_, MEM_LITERAL_SHORT_N)
 
-#define MEM_LITERAL_SHORT_MATCH(P, L) \
-    ()
-
 INLINE UNUSED char *
 MEM_LITERAL_SHORT_FUNCTION(char *haystack, int64 haystack_len,
                            char *literal, int64 literal_len) {
