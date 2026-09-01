@@ -34,12 +34,7 @@ CPPFLAGS="$CPPFLAGS -I$dir/cbase"
 
 CFLAGS="$CFLAGS -std=c11"
 CFLAGS="$CFLAGS -Wfatal-errors"
-# CFLAGS="$CFLAGS -Werror"  # Only uncomment occasionally, keep this line
-
-if [ "$CC" = "clang" ] || [ "$CC" = "zig cc" ]; then
-    CFLAGS="$CFLAGS -Wno-bad-function-cast"
-    CFLAGS="$CFLAGS -Wno-ignored-attributes"
-fi
+CFLAGS="$CFLAGS -Werror"  # Only uncomment occasionally, keep this line
 
 LDFLAGS="$LDFLAGS -lm"
 
