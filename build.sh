@@ -108,7 +108,11 @@ test)
     exit
     ;;
 check)
-    common_build_run_analyzers build
+    (
+        common_build_run_analyzers build
+    )
+    echo "static analysis finished."
+    exit
     ;;
 cross)
     build_program
