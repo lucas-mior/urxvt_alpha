@@ -83,7 +83,7 @@ main(int argc, char *argv[]) {
             current = MAX_OPACITY;
             break;
         }
-        if (fprintf(save, "%i\n", current) <= 0) {
+        if (fprintf(save, "%d\n", current) <= 0) {
             error("Can't write to file, keeping urxvt 100%% opaque\n");
             current = MAX_OPACITY;
         }
@@ -93,8 +93,8 @@ main(int argc, char *argv[]) {
         }
     } while (0);
 
-    printf("\033]011;[%i]#000000\007", levels[current]);  // background
-    printf("\033]708;[%i]#000000\007", levels[current]);  // border
+    printf("\033]011;[%d]#000000\007", levels[current]);  // background
+    printf("\033]708;[%d]#000000\007", levels[current]);  // border
 
     exit(EXIT_SUCCESS);
 }
