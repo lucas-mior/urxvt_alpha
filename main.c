@@ -1,7 +1,7 @@
 #define CBASE_IMPLEMENT
 #include "cbase.h"
 
-#define MAX_OPACITY (int)(sizeof(levels) / sizeof(*levels) - 1)
+#define MAX_OPACITY (int)(SIZEOF(levels) / SIZEOF(*levels) - 1)
 #define DEF_OPACITY 13
 
 static noreturn void help(FILE *);
@@ -40,7 +40,7 @@ main(int argc, char *argv[]) {
                 break;
             }
         }
-        if ((r = read64(cache2, current_str, sizeof(current_str))) <= 0) {
+        if ((r = read64(cache2, current_str, SIZEOF(current_str))) <= 0) {
             error("Can't read from %s", opacity_file);
             if (r < 0) {
                 error(": %s", strerror(errno));
