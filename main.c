@@ -85,7 +85,7 @@ main(int argc, char *argv[]) {
             current = MAX_OPACITY;
             break;
         }
-        if (fprintf(save, "%d\n", current) <= 0) {
+        if (fmt_fprintf(save, "%d\n", current) <= 0) {
             error("Can't write to file, keeping urxvt 100%% opaque\n");
             current = MAX_OPACITY;
         }
