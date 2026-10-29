@@ -95,8 +95,8 @@ main(int argc, char *argv[]) {
         }
     } while (0);
 
-    printf("\033]011;[%d]#000000\007", levels[current]);  // background
-    printf("\033]708;[%d]#000000\007", levels[current]);  // border
+    fmt_printf("\033]011;[%d]#000000\007", levels[current]);  // background
+    fmt_printf("\033]708;[%d]#000000\007", levels[current]);  // border
 
     exit(EXIT_SUCCESS);
 }
