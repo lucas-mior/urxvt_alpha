@@ -103,10 +103,10 @@ main(int argc, char *argv[]) {
 
 void
 help(FILE *stream) {
-    fprintf(stream, "urxvt_alpha [-+=h]\n"
-                    "- -- decrease\n"
-                    "+ -- increase\n"
-                    "= -- set 100%% opaque\n"
-                    "h -- print this help message");
+    fmt_fprintf(stream, "urxvt_alpha [-+=h]\n"
+                        "- -- decrease\n"
+                        "+ -- increase\n"
+                        "= -- set 100%% opaque\n"
+                        "h -- print this help message");
     exit(stream != stdout);
 }
