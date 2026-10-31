@@ -1,7 +1,7 @@
 #define CBASE_IMPLEMENT
 #include "cbase.h"
 
-#define MAX_OPACITY (int)(SIZEOF(levels) / SIZEOF(*levels) - 1)
+#define MAX_OPACITY (LENGTH(levels) - 1)
 #define DEF_OPACITY 13
 
 static noreturn void help(FILE *);
